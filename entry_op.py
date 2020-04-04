@@ -11,7 +11,7 @@ import config  # 設定が読み込まれる
 import logging
 
 
-class Entry_op(object):
+class EntryOp(object):
     """
     Entry(fileやdir)の操作、探索など
     """
@@ -21,9 +21,9 @@ class Entry_op(object):
 
     @staticmethod
     def dir_create(dir_path):
-        if not Entry_op.dir_exsist(dir_path):
+        if not EntryOp.dir_exsist(dir_path):
             try:
-                os.makedev(dir_path)
+                os.mkdir(dir_path)
                 logging.info("{}を作成しました".format(dir_path))
             except OSError:
                 logging.error('Creating directory of data: {}'.format(dir_path))
@@ -43,13 +43,13 @@ class Entry_op(object):
         :param ext: 拡張子
         :return:　ファイルのリスト
         """
-        if not Entry_op.dir_exsist(dir_path):
+        if not EntryOp.dir_exsist(dir_path):
             logging.error("ディレクトリが存在しません")
             return []
         if ext == "":
             f_reg = os.path.join(dir_path, "*")
         else:
-            f_reg = os.path.join(dir_path, "*.", ext)
+            f_reg = os.path.join(dir_path, "*." + ext)
 
         f_list = glob.glob(f_reg)
 
